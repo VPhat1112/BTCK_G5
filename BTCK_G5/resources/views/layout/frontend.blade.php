@@ -30,6 +30,7 @@
                             </svg>
                             {{ Cart::getTotalQuantity()}}
                         </a>
+                        <a href="mt-3 hover:underline sm:mx-3 sm:mt-0"></a>
                         
                     </div>
                 </nav>
