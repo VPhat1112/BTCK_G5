@@ -38,4 +38,10 @@ Route::post('remove', [CartController::class, 'removeCart'])->name('cart.remove'
 Route::post('clear', [CartController::class, 'clearAllCart'])->name('cart.clear');
 
 Route::get('/checkout', [CheckoutController::class,'checkout']);
-Route::get('/logincheckout', [CheckoutController::class,'login_checkout']);
+// Route::get('/logincheckout', [CheckoutController::class,'login_checkout'])->name('logincheckout');
+
+Route::get('/login', [CheckoutController::class, 'login'])->name('login-user');
+// Route::post('/login', [UserController::class, 'postLogin']);
+Route::get('/register', [CheckoutController::class, 'register'])->name('register');
+// Route::post('/register', [UserController::class, 'postRegister']);
+Route::get('/logout', [CheckoutController::class, 'logout'])->name('logout');

@@ -94,8 +94,13 @@
                     
                 </div>
                 <div class="px-5 py-3">
-                    <h3 class="text-gray-700 uppercase">{{ $product->product_name }}</h3>
-                    <span class="mt-2 text-gray-500">${{ $product->product_price }}</span>
+                    <a href="{{URL::to('chi-tiet-san-pham/'.$product->product_id)}}">
+                        <h3 class="text-gray-700 uppercase">{{ $product->product_name }}</h3>
+                        <span class="mt-2 text-gray-500">${{ $product->product_price }}</span>
+                        <img src="{{URL::to('storage/'.$product->product_image)}}" alt="" />
+                        {{-- <h2>{{number_format($product->dongiathue)." VND"}}</h2>
+                        <p>{{$item->tenthietbi}}</p> --}}
+                    </a>
                     <form action="{{ route('cart.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" value="{{ $product->product_id }}" name="id">

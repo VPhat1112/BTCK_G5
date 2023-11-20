@@ -10,45 +10,40 @@
             <img src="{{URL::to('public/upload/product/'.$productDetail->product_image)}}" alt="" />
             <h3>ZOOM</h3>
         </div>
-        <div id="similar-product" class="carousel slide" data-ride="carousel">
-            
-                <!-- Wrapper for slides -->
-                <div class="carousel-inner">
-                    <div class="item active">
-                        <a href=""><img src="{{URL::to('public/frontend/img/product-details/similar1.jpg')}}" alt=""></a>
-                        <a href=""><img src="{{URL::to('public/frontend/img/product-details/similar2.jpg')}}" alt=""></a>
-                        <a href=""><img src="{{URL::to('public/frontend/img/product-details/similar3.jpg')}}" alt=""></a>
-                    </div>
-                    <div class="item">
-                        <a href=""><img src="{{URL::to('public/frontend/img/product-details/similar1.jpg')}}" alt=""></a>
-                        <a href=""><img src="{{URL::to('public/frontend/img/product-details/similar2.jpg')}}" alt=""></a>
-                        <a href=""><img src="{{URL::to('public/frontend/img/product-details/similar3.jpg')}}" alt=""></a>
-                    </div>
-                    <div class="item">
-                        <a href=""><img src="{{URL::to('public/frontend/img/product-details/similar1.jpg')}}" alt=""></a>
-                        <a href=""><img src="{{URL::to('public/frontend/img/product-details/similar2.jpg')}}" alt=""></a>
-                        <a href=""><img src="{{URL::to('public/frontend/img/product-details/similar3.jpg')}}" alt=""></a>
-                    </div>
-                    
-                </div>
-
-                <!-- Controls -->
-                <a class="left item-control" href="#similar-product" data-slide="prev">
-                <i class="fa fa-angle-left"></i>
-                </a>
-                <a class="right item-control" href="#similar-product" data-slide="next">
-                <i class="fa fa-angle-right"></i>
-                </a>
-        </div>
-
-    </div>
+       
     <div class="col-sm-7">
         <div class="product-information"><!--/product-information-->
             <img src="{{URL::to('public/frontend/img/product-details/new.jpg')}}" class="newarrival" alt="" />
             <h2>{{$productDetail->product_name}}</h2>
             <p>Mã đồng hồ: {{$productDetail->product_id}}</p>
             <img src="{{URL::to('public/frontend/img/product-details/rating.png')}}" alt="" />
-            <form action="{{URL::to('/save-cart')}}" method="POST">
+            <form action="{{ route('cart.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <input type="hidden" value="{{ $productDetail->product_id }}" name="id">
+                <input type="hidden" value="{{ $productDetail->product_name }}" name="name">
+                <input type="hidden" value="{{ $productDetail->product_price }}" name="price">
+                <input type="hidden" value="{{ $productDetail->product_image }}"  name="image">
+                <input type="hidden" value="1" name="quantity">
+
+                <p><b>Trạng thái:</b> Còn hàng</p>
+                <p><b>Tình trạng:</b> Mới 100%</p>
+
+                <p><b>Danh mục:</b> {{$productDetail->category_name}}</p>
+                <p><b>Thương hiệu:</b> {{$productDetail->branch_name}}</p>
+                <div class="fb-share-button" 
+                    data-href="{{$meta_canonical}}" 
+                    data-layout="button_count" data-size="small">
+                        {{-- <a target="_blank" 
+                            href="https://www.facebook.com/sharer/sharer.php?u={{ $meta_canonical }}&amp;src=sdkpreparse" 
+                            class="fb-xfbml-parse-ignore">
+                            Share
+                        </a> --}}
+                        
+                </div>
+
+                <button class="px-4 py-2 text-white bg-blue-800 rounded">Add To Cart</button>
+            </form>
+            {{-- <form action="{{URL::to('/save-cart')}}" method="POST">
             {{ csrf_field() }}
             <span>
                 <span>{{number_format($productDetail->product_price).' VND'}}</span>
@@ -60,22 +55,8 @@
                     Thêm vào giỏ hàng
                 </button>
             </span>
-            </form>
-            <p><b>Trạng thái:</b> Còn hàng</p>
-            <p><b>Tình trạng:</b> Mới 100%</p>
-
-            <p><b>Danh mục:</b> {{$productDetail->category_name}}</p>
-            <p><b>Thương hiệu:</b> {{$productDetail->branch_name}}</p>
-            <div class="fb-share-button" 
-                data-href="{{$meta_canonical}}" 
-                data-layout="button_count" data-size="small">
-                    <a target="_blank" 
-                        href="https://www.facebook.com/sharer/sharer.php?u={{ $meta_canonical }}&amp;src=sdkpreparse" 
-                        class="fb-xfbml-parse-ignore">
-                        Share
-                    </a>
-                    
-            </div>
+            </form> --}}
+            
             <div class="fb-like" data-href="{{ $meta_canonical }}" data-width="" data-layout="standard" data-action="like" data-size="small" data-share="false"></div>        
             <!-- <a href=""><img src="{{URL::to('public/frontend/img/product-details/share.png')}}" class="share img-responsive"  alt="" /></a> -->
         </div><!--/product-information-->

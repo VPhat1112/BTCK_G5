@@ -103,7 +103,7 @@
                                                     elseif($customer_id != NULL && Cart::count() != 0){?>
                                                         <a class="btn btn-default check_out" href="/checkout">Thanh toán</a>
                                                     <?php }  else { ?>
-                                                        <a class="btn btn-default check_out" href="/logincheckout">Thanh toán</a>
+                                                        <a class="btn btn-default check_out" href="{{route('login-user')}}">Thanh toán</a>
                                                     <?php } ?>
                                             
                                     </div>

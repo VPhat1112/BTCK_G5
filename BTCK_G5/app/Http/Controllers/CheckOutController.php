@@ -8,6 +8,8 @@ use Session;
 use Illuminate\Support\Facades\Redirect;
 use App\Rules\Captcha;
 use App\Models\City;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class CheckOutController extends Controller
 {
@@ -15,7 +17,22 @@ class CheckOutController extends Controller
     // public function index(request $request){
     //     return view('checkout.login_checkout');
     // }
-    public function login_checkout(Request $request)  {
+
+    public function register() {
+
+        return view('customer_page.register');
+    }
+
+    public function logout() {
+        
+        Auth::logout();
+        // return redirect()->back();
+        return redirect()->route('login-user');
+
+        
+    }
+
+    public function login(Request $request)  {
         $meta_title = "Đăng nhập hoặc đăng ký tài khoản";
         $meta_desc = "Đăng nhập hoặc đăng ký tài khoản của shop";
         $meta_keywords = "đăng nhập xwatch247, xwatch247 login";
@@ -24,7 +41,7 @@ class CheckOutController extends Controller
 
         $cate_product = DB::table('tbl_category_product')->where('category_status','1')->orderby('category_id','desc')->get();
         $branch_product = DB::table('tbl_branch_product')->where('branch_status','1')->orderby('branch_id','desc')->get();
-        return view('checkout.login_checkout')->with('category_product',$cate_product)->with('branch_product',$branch_product)
+        return view('customer_page.login')->with('category_product',$cate_product)->with('branch_product',$branch_product)
         ->with('meta_title',$meta_title)
         ->with('meta_desc',$meta_desc)
         ->with('meta_keywords',$meta_keywords)
@@ -50,9 +67,10 @@ class CheckOutController extends Controller
         ->with('image_og',$image_og)->with('cityData',$city);
     }
 
-    public function login_customer(Request $request) {
-        $email = $request->email_account;
-        $password = md5($request->password_account);
+    public function postLogin(Request $request) {
+        
+        $email = $request->name;
+        $password = md5($request->password);
 
         $result = DB::table('tbl_customers')->where('customer_email',$email)->where('customer_password',$password)->first();
       
@@ -66,7 +84,7 @@ class CheckOutController extends Controller
             return Redirect::to('/login-checkout');
 
         }
-
+        
     }
 
     public function add_customer(Request $request) {
