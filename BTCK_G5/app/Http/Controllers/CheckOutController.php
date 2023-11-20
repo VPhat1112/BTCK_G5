@@ -67,23 +67,27 @@ class CheckOutController extends Controller
         ->with('image_og',$image_og)->with('cityData',$city);
     }
 
-    public function postLogin(Request $request) {
+    public function login_customer(Request $request) {
         
-        $email = $request->name;
+        $email = $request->email;
         $password = md5($request->password);
 
-        $result = DB::table('tbl_customers')->where('customer_email',$email)->where('customer_password',$password)->first();
+        $result = DB::table('tbl_customers')
+        ->where('customer_email',$email)
+        ->where('customer_password',$password)
+        ->first();
       
-        
-        if($result) {
-            Session::put('customer_id',$result->customer_id);
-            Session::put('customer_name',$result->customer_name);
-            return Redirect::to('/checkout');
-        } else {
-            Session::put('message','Mật khẩu hoặc tài khoản không đúng, vui lòng nhập lại!');
-            return Redirect::to('/login-checkout');
+        dd($result);
 
-        }
+        // if($result) {
+        //     Session::put('customer_id',$result->customer_id);
+        //     Session::put('customer_name',$result->customer_name);
+        //     return Redirect::to('/checkout');
+        // } else {
+        //     Session::put('message','Mật khẩu hoặc tài khoản không đúng, vui lòng nhập lại!');
+        //     return redirect()->back()->with('error', 'Thong tin dang nhap sai!');
+
+        // }
         
     }
 

@@ -1,6 +1,6 @@
-{{-- @extends('customer_page.index') --}}
-{{-- @section('content') --}}
-<!DOCTYPE html>
+@extends('customer_page.index') 
+@section('main')
+{{-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
-<body>
+<body> --}}
     <main class="main">
         <div class="page-header">
             <div class="container d-flex flex-column align-items-center">
@@ -82,7 +82,7 @@
             </div>
         </div>
     </main><!-- End .main -->
-</body>
-</html>
+{{-- </body>
+</html> --}}
 
-{{-- @endsection --}}
+@endsection
