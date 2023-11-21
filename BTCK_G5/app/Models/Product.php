@@ -19,7 +19,7 @@ class Product extends Model
         'product_name',
         'product_status'];
     protected $table= 'tbl_product';
-    protected $PrimaryKey= 'product_id';
+    protected $primaryKey= 'product_id';
     public $timestamps= true;
     // protected $dateFormat='h:m:s';
 
