@@ -1,5 +1,5 @@
-@extends('layout.frontend')
-@section('content')
+@extends('customer_page.index')
+@section('main')
 <main class="main">
     <div class="page-header">
         <div class="container d-flex flex-column align-items-center">

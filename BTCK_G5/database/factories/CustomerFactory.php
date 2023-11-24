@@ -21,7 +21,8 @@ class CustomerFactory extends Factory
             'customer_name'=>$this->faker->name,
             'customer_email'=>'awatsica@example.org',
             'customer_phone'=>$this->faker->phoneNumber,
-            'customer_password'=>'123'
+            'customer_password'=>'123',
+            'Address'=>$this->faker->paragraph
         ];
     }
 }

@@ -13,6 +13,7 @@
     <meta name="keywords" content="HTML5 Template" />
     <meta name="description" content="Porto - Bootstrap eCommerce Template">
     <meta name="author" content="SW-THEMES">
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{asset('fe-asset')}}/assets/images/icons/favicon.png">
@@ -93,12 +94,16 @@
                             <a href="#">Links</a>
                             <div class="header-menu">
                                 <ul>
-                                    <li><a href="dashboard.html">My Account</a></li>
+                                    <li><a href="{{ Route('MyAccount') }}">My Account</a></li>
                                     <li><a href="demo1-contact.html">Contact Us</a></li>
                                     <li><a href="wishlist.html">My Wishlist</a></li>
-                                    <li><a href="#">Site Map</a></li>
-                                    <li><a href="cart.html">Cart</a></li>
-                                    <li><a href="{{route('logout')}}">Logout</a></li>
+                                    <li><a href="/">Home</a></li>
+                                    <li><a href="cart">Cart</a></li>
+                                    @if(session()->has('customer_id') && session()->has('customer_name'))
+                                        <li><a href="{{ route('logout') }}">Logout</a></li>
+                                    @else
+                                        <li><a href="{{ route('login') }}">Login</a></li>
+                                    @endif
                                 </ul>
                             </div>
                             <!-- End .header-menu -->
@@ -178,115 +183,23 @@
                                 {{ Auth::user()->name }}
                             </a>    
                         @else
-                            <a href="{{route('login-user')}}" class="header-icon header-icon-user"><i class="icon-user-2"></i>
+                            {{-- <a href="{{route('login-user')}}" class="header-icon header-icon-user"><i class="icon-user-2"></i>
                                 Login
-                            </a>  
+                            </a>   --}}
                         @endif
                         
 
                         <a href="wishlist.html" class="header-icon"><i class="icon-wishlist-2"></i></a>
+                        
+                        <a href="{{route('cart.list')}}" title="Cart" >
+                            <i class="minicart-icon"></i>
+                            {{-- @if ($productCount!=0)
+                                <span class="cart-count circle">{{ $productCount }}</span>    
+                            @endif --}}
+                            
+                        </a>
 
-                        <div class="dropdown cart-dropdown">
-                            <a href="#" title="Cart" class="dropdown-toggle dropdown-arrow cart-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
-                                <i class="minicart-icon"></i>
-                                <span class="cart-count badge-circle">3</span>
-                            </a>
-
-                            <div class="cart-overlay"></div>
-
-                            <div class="dropdown-menu mobile-cart">
-                                <a href="#" title="Close (Esc)" class="btn-close">×</a>
-
-                                <div class="dropdownmenu-wrapper custom-scrollbar">
-                                    <div class="dropdown-cart-header">Shopping Cart</div>
-                                    <!-- End .dropdown-cart-header -->
-
-                                    <div class="dropdown-cart-products">
-                                        <div class="product">
-                                            <div class="product-details">
-                                                <h4 class="product-title">
-                                                    <a href="demo1-product.html">Ultimate 3D Bluetooth Speaker</a>
-                                                </h4>
-
-                                                <span class="cart-product-info">
-                                                    <span class="cart-product-qty">1</span> × $99.00
-                                                </span>
-                                            </div>
-                                            <!-- End .product-details -->
-
-                                            <figure class="product-image-container">
-                                                <a href="demo1-product.html" class="product-image">
-                                                    <img src="{{asset('fe-asset')}}/assets/images/products/product-1.jpg" alt="product" width="80" height="80">
-                                                </a>
-
-                                                <a href="#" class="btn-remove" title="Remove Product"><span>×</span></a>
-                                            </figure>
-                                        </div>
-                                        <!-- End .product -->
-
-                                        <div class="product">
-                                            <div class="product-details">
-                                                <h4 class="product-title">
-                                                    <a href="demo1-product.html">Brown Women Casual HandBag</a>
-                                                </h4>
-
-                                                <span class="cart-product-info">
-                                                    <span class="cart-product-qty">1</span> × $35.00
-                                                </span>
-                                            </div>
-                                            <!-- End .product-details -->
-
-                                            <figure class="product-image-container">
-                                                <a href="demo1-product.html" class="product-image">
-                                                    <img src="{{asset('fe-asset')}}/assets/images/products/product-2.jpg" alt="product" width="80" height="80">
-                                                </a>
-
-                                                <a href="#" class="btn-remove" title="Remove Product"><span>×</span></a>
-                                            </figure>
-                                        </div>
-                                        <!-- End .product -->
-
-                                        <div class="product">
-                                            <div class="product-details">
-                                                <h4 class="product-title">
-                                                    <a href="demo1-product.html">Circled Ultimate 3D Speaker</a>
-                                                </h4>
-
-                                                <span class="cart-product-info">
-                                                    <span class="cart-product-qty">1</span> × $35.00
-                                                </span>
-                                            </div>
-                                            <!-- End .product-details -->
-
-                                            <figure class="product-image-container">
-                                                <a href="demo1-product.html" class="product-image">
-                                                    <img src="{{asset('fe-asset')}}/assets/images/products/product-3.jpg" alt="product" width="80" height="80">
-                                                </a>
-                                                <a href="#" class="btn-remove" title="Remove Product"><span>×</span></a>
-                                            </figure>
-                                        </div>
-                                        <!-- End .product -->
-                                    </div>
-                                    <!-- End .cart-product -->
-
-                                    <div class="dropdown-cart-total">
-                                        <span>SUBTOTAL:</span>
-
-                                        <span class="cart-total-price float-right">$134.00</span>
-                                    </div>
-                                    <!-- End .dropdown-cart-total -->
-
-                                    <div class="dropdown-cart-action">
-                                        <a href="cart.html" class="btn btn-gray btn-block view-cart">View
-                                            Cart</a>
-                                        <a href="checkout.html" class="btn btn-dark btn-block">Checkout</a>
-                                    </div>
-                                    <!-- End .dropdown-cart-total -->
-                                </div>
-                                <!-- End .dropdownmenu-wrapper -->
-                            </div>
-                            <!-- End .dropdown-menu -->
-                        </div>
+                        
                         <!-- End .dropdown -->
                     </div>
                     <!-- End .header-right -->
@@ -309,7 +222,7 @@
                         <div class="col-lg-3 col-sm-6 pb-2 pb-sm-0">
                             <div class="widget">
                                 <h4 class="widget-title">About Us</h4>
-                                <a href="demo1.html">
+                                <a href="cart.list">
                                     <img src="{{asset('fe-asset')}}/assets/images/logo-footer.png" alt="Logo" class="logo-footer">
                                 </a>
                                 <p class="m-b-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec vestibulum magna, et dapibus lacus. Duis nec vestibulum magna, et dapibus lacus.</p>
@@ -527,7 +440,7 @@
                     <li><a href="login.html">My Account</a></li>
                     <li><a href="demo1-contact.html">Contact Us</a></li>
                     <li><a href="wishlist.html">My Wishlist</a></li>
-                    <li><a href="#">Site Map</a></li>
+                    <li><a href="cart.list">Home</a></li>
                     <li><a href="cart.html">Cart</a></li>
                     <li><a href="login.html" class="login-link">Log In</a></li>
                 </ul>

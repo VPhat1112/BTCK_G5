@@ -25,16 +25,16 @@
                             </tr>
                           </thead>
                           <tbody>
-                              @foreach ($cart_Items as $item)
+                              @foreach (session('cart') as $productId => $item)
                             <tr>
                               <td class="hidden pb-4 md:table-cell">
                                 <a href="#">
-                                  <img src="{{ $item->attributes->image }}" class="w-20 rounded" alt="Thumbnail">
+                                  <img src="{{URL::to('upload/'.$item['image'])}}" class="w-20 rounded" alt="Thumbnail">
                                 </a>
                               </td>
                               <td>
                                 <a href="#">
-                                  <p class="mb-2 md:ml-4">{{ $item->name }}</p>
+                                  <p class="mb-2 md:ml-4">{{ $item['name'] }}</p>
                                   
                                 </a>
                               </td>
@@ -44,8 +44,8 @@
                                     
                                     <form action="{{ route('cart.update') }}" method="POST">
                                       @csrf
-                                      <input type="hidden" name="id" value="{{ $item->id}}" >
-                                    <input type="number" name="quantity" value="{{ $item->quantity }}" 
+                                      <input type="hidden" name="id" value="{{ $item['id']}}" >
+                                    <input type="number" name="quantity" value="{{ $item['quantity'] }}" 
                                     class="w-6 text-center bg-gray-300" />
                                     <button type="submit" class="px-2 pb-2 ml-2 text-white bg-blue-500">update</button>
                                     </form>
@@ -54,13 +54,13 @@
                               </td>
                               <td class="hidden text-right md:table-cell">
                                 <span class="text-sm font-medium lg:text-base">
-                                    ${{ $item->price }}
+                                    ${{ $item['price'] }}
                                 </span>
                               </td>
                               <td class="hidden text-right md:table-cell">
                                 <form action="{{ route('cart.remove') }}" method="POST">
                                   @csrf
-                                  <input type="hidden" value="{{ $item->id }}" name="id">
+                                  <input type="hidden" value="{{ $item['id'] }}" name="id">
                                   <button class="px-4 py-2 text-white bg-red-600">x</button>
                               </form>
                                 
@@ -72,10 +72,10 @@
                         </table>
                         <div>
                             <ul>
-                                <li>Tổng tiền sản phẩm <span>{{ Cart::getsubtotal(0) . " VND" }}</span></li>
+                                <li>Tổng tiền sản phẩm <span>{{ number_format($subtotal, 2) . " VND" }}</span></li>
                                 {{-- <li>Thuế <span>{{ Cart::gettax(0) . " VND" }}</span></li> --}}
                                 <li>Phí vận chuyển <span>Miễn phí</span></li>
-                                <li>Tổng tiền thanh toán <span>{{ Cart::gettotal(0) . " VND" }}</span></li>
+                                <li>Tổng tiền thanh toán <span>{{ number_format($subtotal, 2) . " VND" }}</span></li>
                             </ul>
                         </div>
                         <div>
@@ -87,23 +87,18 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="total_area">
-                                        {{-- <ul>
-                                            <li>Tổng tiền sản phẩm <span>{{ Cart::subtotal(0) . " VND" }}</span></li>
-                                            <li>Thuế <span>{{ Cart::tax(0) . " VND" }}</span></li>
-                                            <li>Phí vận chuyển <span>Miễn phí</span></li>
-                                            <li>Tổng tiền thanh toán <span>{{ Cart::total(0) . " VND" }}</span></li>
-                                        </ul> --}}
                                             <?php
-                                                    $customer_id = Session::get('customer_id');
+                                                    $customer_id = Session::get('customer');
+                                                    $Cart=Session::get('cart');
                                                 
-                                                    if($customer_id != NULL && Cart::count() == 0) {
+                                                    if($customer_id->customer_id != NULL  && $Cart==null) {
                                                     ?>
                                                     <a class="btn btn-default check_out" onclick="return alert('Bạn chưa có gì trong giỏ hàng, vui lòng thêm một sản phẩm')" href="#">Thanh toán</a>
                                                     <?php }
-                                                    elseif($customer_id != NULL && Cart::count() != 0){?>
+                                                    elseif($customer_id->customer_id != NULL && $Cart!=null){?>
                                                         <a class="btn btn-default check_out" href="/checkout">Thanh toán</a>
                                                     <?php }  else { ?>
-                                                        <a class="btn btn-default check_out" href="{{route('login-user')}}">Thanh toán</a>
+                                                        <a class="btn btn-default check_out" href="{{route('login')}}">Thanh toán</a>
                                                     <?php } ?>
                                             
                                     </div>

@@ -19,7 +19,7 @@
             <img src="{{URL::to('public/frontend/img/product-details/rating.png')}}" alt="" />
             <form action="{{ route('cart.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                <input type="hidden" value="{{ $productDetail->product_id }}" name="id">
+                <input type="hidden" value="{{ $productDetail->product_id }}" name="productID">
                 <input type="hidden" value="{{ $productDetail->product_name }}" name="name">
                 <input type="hidden" value="{{ $productDetail->product_price }}" name="price">
                 <input type="hidden" value="{{ $productDetail->product_image }}"  name="image">

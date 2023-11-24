@@ -80,9 +80,9 @@
     </div>
 @endsection --}} 
 
-@extends('layout.frontend')
+@extends('customer_page.index')
 
-@section('content')
+@section('main')
 @include('layout.left')
     <div class="container px-6 mx-auto">
         <h3 class="text-2xl font-medium text-gray-700">Product List</h3>
@@ -97,17 +97,16 @@
                     <a href="{{URL::to('chi-tiet-san-pham/'.$product->product_id)}}">
                         <h3 class="text-gray-700 uppercase">{{ $product->product_name }}</h3>
                         <span class="mt-2 text-gray-500">${{ $product->product_price }}</span>
-                        <img src="{{URL::to('storage/'.$product->product_image)}}" alt="" />
-                        {{-- <h2>{{number_format($product->dongiathue)." VND"}}</h2>
-                        <p>{{$item->tenthietbi}}</p> --}}
+                        <img src="{{URL::to('upload/'.$product->product_image)}}" alt="" />
+                        
                     </a>
                     <form action="{{ route('cart.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        <input type="hidden" value="{{ $product->product_id }}" name="id">
+                        <input type="hidden" value="{{ $product->product_id }}" name="productID">
                         <input type="hidden" value="{{ $product->product_name }}" name="name">
                         <input type="hidden" value="{{ $product->product_price }}" name="price">
                         <input type="hidden" value="{{ $product->product_image }}"  name="image">
-                        <input type="hidden" value="1" name="quantity">
+                        <input type="hidden" value="1" name="quanlity">
                         <button class="px-4 py-2 text-white bg-blue-800 rounded">Add To Cart</button>
                     </form>
                 </div>
@@ -118,4 +117,5 @@
             @endforelse 
         </div>
     </div>
+    
 @endsection

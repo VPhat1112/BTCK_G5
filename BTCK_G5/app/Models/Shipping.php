@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Shipping extends Model
 {
     use HasFactory;
-    public $timestamps = false;
+    public $timestamps = true;
     protected $fillable = [
     'shipping_name',
     'shipping_address',
@@ -19,4 +19,5 @@ class Shipping extends Model
     ];
     protected $primaryKey = 'shipping_id';
     protected $table = 'tbl_shipping';
+    
 }

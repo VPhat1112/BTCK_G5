@@ -49,7 +49,7 @@
                                     Email address
                                     <span class="required">*</span>
                                 </label>
-                                <input type="email" class="form-input form-wide" id="login-email" name="email"/>
+                                <input type="email" class="form-input form-wide" id="login-email" name="name"/>
     
                                 <label for="login-password">
                                     Password
