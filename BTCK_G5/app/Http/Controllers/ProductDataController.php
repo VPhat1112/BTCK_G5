@@ -16,7 +16,7 @@ class ProductDataController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-      protected $product;
+    protected $product;
     public function __construct(Product $product)
     {
         $this->product = $product;
@@ -32,8 +32,8 @@ class ProductDataController extends Controller
            if ($request->has('sort') && $request->input('sort') == 'product_name') {
                $query->orderBy('product_name', 'asc');
            }
-           $perPage = $request->has('per_page') ? $request->input('per_page') : 5;
-           $product = $query->paginate($perPage);
+        //    $perPage = $request->has('per_page') ? $request->input('per_page') : 5;
+           $product = $query->paginate();
            $productResource = new Collection($product);
            return $this->sentSuccessRepose($productResource,'thanh cong',Response::HTTP_OK);
         } catch (\Throwable $e) {
@@ -68,7 +68,8 @@ class ProductDataController extends Controller
                 $file_name=time().'-'.'product.'.$ext;
                 $file->move(public_path('upload'),$file_name);
             }
-            $request->merge(['product_image'=>$file_name]);
+            $url = asset("upload/" . $file_name);
+            $request->merge(['product_image'=>$url]);
              $dataCreate=$request->all();
            $product = $this->product->create($dataCreate);
            $productResource = new ProductResources($product);
@@ -126,7 +127,9 @@ class ProductDataController extends Controller
 
         if ($request->hasFile('image')) {
             if (!empty($product->product_image)) {
-                $file_path = public_path('upload/' . $product->product_image);
+                $pathInfo = pathinfo(parse_url($product->product_image, PHP_URL_PATH));
+                $filename = $pathInfo['basename'];
+                $file_path = public_path('upload/' . $filename);
                 if (file_exists($file_path)) {
                     unlink($file_path);
                 }
@@ -135,7 +138,8 @@ class ProductDataController extends Controller
             $ext = $file->extension();
             $file_name = time().'-'.'product.'.$ext;
             $file->move(public_path('upload'), $file_name);
-            $dataUpdate['product_image'] = $file_name;
+            $url = asset("upload/" . $file_name);
+            $dataUpdate['product_image'] =  $url;
         }
 
         $product->update($dataUpdate);
