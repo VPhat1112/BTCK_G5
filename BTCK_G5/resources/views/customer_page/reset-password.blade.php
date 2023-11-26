@@ -2,14 +2,15 @@
 
 @section('main')
 <main class="main">
-    <div class="container login-container">
-        <div class="row">
-            <div class="col-lg-10 mx-auto">
-                <div class="row justify-content-center">
-                    <div class="col-md-6">
-                        <div class="heading mb-1">
-                            <h2 class="title">Reset Password</h2>
-                        </div>
+    <style>
+        .no-underline {
+            text-decoration: none;
+        }
+    </style>
+    <div class="row login">
+        <div class="col login">
+            <div class="container-form">
+                <p class="login-title">Đổi Mật Khẩu</p>
 
                         @if (session()->has('error'))
                             <div class="alert alert-danger"> {{ session('error') }} </div>
@@ -23,34 +24,29 @@
                             @csrf
                             <input type="hidden" name="token" value="{{ $token }}">
 
-                            <label for="email">
-                                Email address
-                                <span class="required">*</span>
-                            </label>
-                            <input type="email" class="form-input form-wide" name="email" required />
-
-                            <label for="password">
-                                Password
-                                <span class="required">*</span>
-                            </label>
-                            <input type="password" class="form-input form-wide" name="password" required />
-
-                            <label for="password_confirmation">
-                                Confirm Password
-                                <span class="required">*</span>
-                            </label>
-                            <input type="password" class="form-input form-wide" name="password_confirmation" required />
-
-                            <div class="form-footer">
-                                <button type="submit" class="btn btn-dark btn-md w-100 mb-1">
-                                    Reset Password
-                                </button>
+                            <div style="width: 400px;" class="flex-start">
+                                <div style="width: 100%;"> 
+                                    <p class="label-form">Email *</p>
+                                    <input type="email" id="login-email" name="email" style="width: 100%;" />
+                                </div>
+                        
                             </div>
+                            
+                            <div style="width: 400px;" class="flex-start">
+                                <div style="width: 100%;"> 
+                                    <p class="label-form">Password *</p>
+                                    <input type="email" id="login-email" name="password" style="width: 100%;" />
+                                </div>
+                            </div>
+                            <div style="width: 400px;" class="flex-start">
+                                <div style="width: 100%;"> 
+                                    <p class="label-form">Confirm Password *</p>
+                                    <input type="email" id="login-email" name="password_confirmation" style="width: 100%;" />
+                                </div>
+                            </div>
+                            <button type="submit" class="btn-login"><span class="text-btn">Reset Password</span></button>
                         </form>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</main><!-- End .main -->
 @endsection

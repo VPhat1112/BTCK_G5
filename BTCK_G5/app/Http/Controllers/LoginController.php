@@ -80,6 +80,7 @@ class LoginController extends Controller
         
     }
     
+
     public function login(Request $request)  {
         return view('customer_page.login');
         
