@@ -24,18 +24,22 @@ class CategoryController extends Controller
     {
         //
         try {
-            $query = $this->category->query();
-           if ($request->has('category_name')) {
-               $name = $request->input('category_name');
-               $query->where('category_name', 'like', '%' . $name . '%');
-           }
-           if ($request->has('sort') && $request->input('sort') == 'category_name') {
-               $query->orderBy('category_name', 'asc');
-           }
-           $perPage = $request->has('per_page') ? $request->input('per_page') : 5;
-           $category = $query->paginate($perPage);
-           $categoryResource = new Collection($category);
-           return $this->sentSuccessRepose($categoryResource,'thanh cong',Response::HTTP_OK);
+        //     $query = $this->category->query();
+        //    if ($request->has('category_name')) {
+        //        $name = $request->input('category_name');
+        //        $query->where('category_name', 'like', '%' . $name . '%');
+        //    }
+        //    if ($request->has('sort') && $request->input('sort') == 'category_name') {
+        //        $query->orderBy('category_name', 'asc');
+        //    }
+        //    $perPage = $request->has('per_page') ? $request->input('per_page') : 5;
+        //    $category = $query->paginate($perPage);
+        //    $categoryResource = new Collection($category);
+        $data = Category::all();
+        //    return $this->sentSuccessRepose($categoryResource,'thanh cong',Response::HTTP_OK);
+            return response()->json([
+                'data' => $data
+        ]);
         } catch (\Throwable $e){
              return response()->json([
             'message' => 'Không tìm thấy danh mục',
