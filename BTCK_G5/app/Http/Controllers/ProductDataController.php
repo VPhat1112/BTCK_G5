@@ -89,99 +89,99 @@ class ProductDataController extends Controller
      */
     public function show(string $product_id)
     {
-        try {
-        $product = $this->product->where('product_id', $product_id)->firstOrFail();
-        $productResource = new ProductResources($product);
-
-        return $this->sentSuccessRepose($productResource,'thanh cong',Response::HTTP_OK);
-    } catch (\Exception $e) {
-        return response()->json([
-            'message' => 'Không tìm thấy danh mục',
-        ], Response::HTTP_NOT_FOUND);
-    }
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-       public function update(Request $request,string $product_id)
-    {
-          try {
-        $product = $this->product->where('product_id', $product_id)->firstOrFail();
-        $dataUpdate = $request->all();
-
-        if ($request->hasFile('image')) {
-            if (!empty($product->product_image)) {
-                $pathInfo = pathinfo(parse_url($product->product_image, PHP_URL_PATH));
-                $filename = $pathInfo['basename'];
-                $file_path = public_path('upload/' . $filename);
-                if (file_exists($file_path)) {
-                    unlink($file_path);
-                }
-            }
-            $file = $request->file('image');
-            $ext = $file->extension();
-            $file_name = time().'-'.'product.'.$ext;
-            $file->move(public_path('upload'), $file_name);
-            $url = asset("upload/" . $file_name);
-            $dataUpdate['product_image'] =  $url;
-        }
-
-        $product->update($dataUpdate);
-
-        if ($product->wasChanged()) {
+        try {$product = $this->product->where('product_id', $product_id)->firstOrFail();
             $productResource = new ProductResources($product);
-            return $this->sentSuccessRepose($productResource, 'Thành công', Response::HTTP_OK);
-        } else {
+    
+            return $this->sentSuccessRepose($productResource,'thanh cong',Response::HTTP_OK);
+        } catch (\Exception $e) {
             return response()->json([
-                'message' => 'Không có dữ liệu nào thay đổi',
-            ], Response::HTTP_OK);
+                'message' => 'Không tìm thấy danh mục',
+            ], Response::HTTP_NOT_FOUND);
         }
-
-
-    } catch (\Exception $e) {
-        return response()->json([
-            'message' => 'Không update được sản phẩm',
-        ], Response::HTTP_NOT_FOUND);
-    }
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(string $product_id)
-    {
-         try {
-        $product = $this->product->where('product_id', $product_id)->firstOrFail();
-        $file_path = public_path('upload/' . $product->product_image);
-        unlink($file_path);
-        $product->delete();
-        $productResource = new ProductResources($product);
-        return response()->json([
-            'message' => 'đã xóa',
-        ], Response::HTTP_OK);
-    } catch (\Exception $e) {
-        return response()->json([
-            'message' => 'Không thể xóa danh mục.',
-        ], Response::HTTP_NOT_FOUND);
-    }
-    }
-}
+        }
+    
+        /**
+         * Show the form for editing the specified resource.
+         *
+         * @param  int  $id
+         * @return \Illuminate\Http\Response
+         */
+        public function edit($id)
+        {
+            //
+        }
+    
+        /**
+         * Update the specified resource in storage.
+         *
+         * @param  \Illuminate\Http\Request  $request
+         * @param  int  $id
+         * @return \Illuminate\Http\Response
+         */
+           public function update(Request $request,string $product_id)
+        {
+              try {
+            $product = $this->product->where('product_id', $product_id)->firstOrFail();
+            $dataUpdate = $request->all();
+    
+            if ($request->hasFile('image')) {
+                if (!empty($product->product_image)) {
+                    $pathInfo = pathinfo(parse_url($product->product_image, PHP_URL_PATH));
+                    $filename = $pathInfo['basename'];
+                    $file_path = public_path('upload/' . $filename);
+                    if (file_exists($file_path)) {
+                        unlink($file_path);
+                    }
+                }
+                $file = $request->file('image');
+                $ext = $file->extension();
+                $file_name = time().'-'.'product.'.$ext;
+                $file->move(public_path('upload'), $file_name);
+                $url = asset("upload/" . $file_name);
+                $dataUpdate['product_image'] =  $url;
+            }
+    
+            $product->update($dataUpdate);
+    
+            if ($product->wasChanged()) {
+                $productResource = new ProductResources($product);
+                return $this->sentSuccessRepose($productResource, 'Thành công', Response::HTTP_OK);
+            } else {
+                return response()->json([
+                    'message' => 'Không có dữ liệu nào thay đổi',
+                ], Response::HTTP_OK);
+            }
+    
+    
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Không update được sản phẩm',
+            ], Response::HTTP_NOT_FOUND);
+        }
+        }
+    
+        /**
+         * Remove the specified resource from storage.
+         *
+         * @param  int  $id
+         * @return \Illuminate\Http\Response
+         */
+        public function destroy(string $product_id)
+        {
+             try {
+            $product = $this->product->where('product_id', $product_id)->firstOrFail();
+            $pathInfo = pathinfo(parse_url($product->product_image, PHP_URL_PATH));
+            $filename = $pathInfo['basename'];
+            $file_path = public_path('upload/' . $filename);
+            unlink($file_path);
+            $product->delete();
+            $productResource = new ProductResources($product);
+            return response()->json([
+                'message' => 'đã xóa',], Response::HTTP_OK);
+            } catch (\Exception $e) {
+                return response()->json([
+                    'message' => 'Không thể xóa danh mục.',
+                ], Response::HTTP_NOT_FOUND);
+            }
+            }
+        }
