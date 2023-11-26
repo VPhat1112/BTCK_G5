@@ -43,13 +43,13 @@
                                 @endif
                             </div>
     
-                            <form action="" method="POST">
+                            <form action="{{ URL::to('/login_cus') }}" method="POST">
                                 @csrf
                                 <label for="login-email">
                                     Email address
                                     <span class="required">*</span>
                                 </label>
-                                <input type="email" class="form-input form-wide" id="login-email" name="name"/>
+                                <input type="email" class="form-input form-wide" id="login-email" name="email"/>
     
                                 <label for="login-password">
                                     Password
@@ -64,16 +64,24 @@
                                             me</label>
                                     </div>
     
-                                    <a href="forgot-password.html"
+                                    <a href="{{route('forgot.password')}}"
                                         class="forget-password text-dark form-footer-right">Forgot
                                         Password?</a>
                                 </div>
                                 <button type="submit" class="btn btn-dark btn-md w-100 mb-3">
                                     LOGIN
                                 </button>
-                                <a href="{{route('register')}}" class="btn btn-primary btn-md w-100">
+                                <a href="{{URL::to('register')}}" class="btn btn-primary btn-md w-100">
                                     Register
                                 </a>
+                                <p class=" w-100 mb-3">or</p>
+                                <div class="form-group row mb-0">
+                                    <div class="col-md-8 offset-md-4">
+                                        <a href="{{ URL::to('/auth/google/redirect') }}" class="btn btn-primary">
+                                            {{ __('Login/Register with Google') }}
+                                        </a>
+                                    </div>
+                                </div>
                                 
                             </form>
                         </div>

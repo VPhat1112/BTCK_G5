@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('tbl_tinhthanhpho', function (Blueprint $table) {
             $table->increments('matp');
             $table->string('name_city');
-
+            $table->string('customer_id');
             $table->timestamps();
         });
     }

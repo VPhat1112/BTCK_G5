@@ -14,7 +14,8 @@ class Order extends Model
         'shipping_id',
         'order_code',
         'order_status',
-        'created_at'
+        'created_at',
+        'updated_at'
     ];
     protected $primaryKey = 'order_id';
 

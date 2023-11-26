@@ -17,32 +17,36 @@ class CartController extends Controller
     
 
     public function addToCart(Request $request) {
-        $cart = session()->get('cart', []);// Retrieve the current cart or initialize an empty array if it doesn't exist
-
+        $cart = session()->get('cart', []); // Retrieve the current cart or initialize an empty array if it doesn't exist
+    
         $session_id = substr(md5(microtime()), rand(0, 26), 5);
         $productId = $request->productID;
-        $quanlity = $request->quanlity;
+    
         $product = DB::table('tbl_product')->where('product_id', $productId)->first();
-        $cart[$productId] = [
-            'id'=>$product->product_id,
-            'session_id'=>$session_id,
-            'name' => $product->product_name,
-            'price' => $product->product_price,
-            'image'=>$product->product_image,
-            'quantity' => 1,
-        ];
-        
-        
+    
+        if (isset($cart[$productId])) {
+            // Product already exists in the cart, update the quantity
+            $cart[$productId]['quantity'] += $request->quantity;
+        } else {
+            // Product does not exist in the cart, add it to the cart
+            $cart[$productId] = [
+                'id' => $product->product_id,
+                'session_id' => $session_id,
+                'name' => $product->product_name,
+                'price' => $product->product_price,
+                'image' => $product->product_image,
+                'quantity' => $request->quantity,
+            ];
+        }
+    
         $productCount = $this->getProductCount();
-
-        // session()->put('cart',$cart);
+    
+        session(['cart' => $cart]);
         session()->flash('success', 'Product is Added to Cart Successfully !');
-
-        // dd(session()->get('cart'));
+    
         return redirect()->route('cart.list')
-        ->with(session(['cart' => $cart]))
-        ->with(['subtotal' => $this->calculateSubtotal()])
-        ->with(['productCount' => $productCount]);
+            ->with(['subtotal' => $this->calculateSubtotal()])
+            ->with(['productCount' => $productCount]);
     }
 
     
@@ -58,7 +62,7 @@ class CartController extends Controller
         $image_og = "";
         $productCount = $this->getProductCount();
         $cate_product = DB::table('tbl_category_product')->where('category_status','1')->orderby('category_id','desc')->get();
-        $branch_product = DB::table('tbl_branch_product')->where('branch_status','1')->orderby('branch_id','desc')->get();
+        $branch_product = DB::table('tbl_brand_product')->where('brand_status','1')->orderby('brand_id','desc')->get();
         return view('Cart.view_cart')->with(session(['cart' => $cart]))->with('category_product',$cate_product)->with('branch_product',$branch_product)
         ->with('meta_title',$meta_title)
         ->with('meta_desc',$meta_desc)

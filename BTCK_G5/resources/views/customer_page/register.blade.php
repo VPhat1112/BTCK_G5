@@ -27,9 +27,18 @@
                         <div class="heading mb-1">
                             <h2 class="title">Register</h2>
                         </div>
+                        @if ($message = Session::get('error'))
+                                    <div class="alert alert-danger alert-block">
+                                        <button type="button" class="close" data-dismiss="alert"></button>
+                                        <strong>{{ $message }}</strong>
+                                    </div>
+                                @endif
 
-                        <form action="" method="POST">
+                        <form action="{{ URL::to('/register_save') }}" method="POST">
                             @csrf
+                            <div class="alert alert-success alert-block">
+                                <p>Yêu cầu email phải tồn tại nếu không sẽ không lấy lại được mật khẩu khi quên mật khẩu trong trường hợp khẩn cấp!!! </p>
+                            </div>
                             <label for="login-email">
                                 Email address
                                 <span class="required">*</span>
@@ -55,7 +64,7 @@
                             <input type="password" class="form-input form-wide" id="login-password" required />
 
                             <div class="form-footer">
-                                <a href="forgot-password.html"
+                                <a href="{{ URL::to('login') }}"
                                     class="forget-password text-dark form-footer-right">Đã có tài khoản</a>
                             </div>
                             <button type="submit" class="btn btn-dark btn-md w-100 mb-3">

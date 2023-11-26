@@ -28,11 +28,11 @@
                             <div class="modal-body">					
                                 <div class="form-group">
                                     <label>Tên Khách hàng</label>
-                                    <input name="name" type="text" class="form-control" value="{{ session('customer')->customer_name }}" required>
+                                    <input name="name" type="text" class="form-control" value="{{ session('customer')->name }}" required>
                                 </div>
                                 <div class="form-group">
                                     <label>SDT</label>
-                                    <input name="image" type="text" class="form-control" value="{{ session('customer')->customer_phone }}" required>
+                                    <input name="image" type="text" class="form-control" value="{{ session('customer')->phone }}" required>
                                 </div>
                                 
                                
@@ -83,7 +83,7 @@
                                     </th>
                                     <td class="align-middle"><strong>{{ $item->product_price }}</strong></td>
                                     <td class="align-middle">
-                                        <input class="input-qty" max="Số tối đa" min="0" type="text" name="Quantity" value="{{ $item->product_sales_quanlity }}" >
+                                        <input class="input-qty" max="Số tối đa" min="0" type="text" name="Quantity" value="{{ $item->product_sales_quanlity }}"  disabled>
                                     </td>
                                     <td class="align-middle">{{ $item->product_price }}</td>
 

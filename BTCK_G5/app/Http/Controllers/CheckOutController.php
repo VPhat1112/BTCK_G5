@@ -21,48 +21,7 @@ class CheckOutController extends Controller
     //     return view('checkout.login_checkout');
     // }
 
-    public function register() {
-
-        return view('customer_page.register');
-    }
-
-    public function logout() {
-        // Auth::logout();
-        session()->forget('customer');
-        // return redirect()->back();
-        return redirect()->route('login');
-
-        
-    }
-
-    public function login(Request $request)  {
-        return view('customer_page.login');
-        
-    }
     
-    public function login_customer(Request $request) {
-        
-        $email = $request->name;
-        $password = $request->password;
-
-        $result = DB::table('tbl_customers')
-        ->where('customer_email',$email)
-        ->where('customer_password',$password)
-        ->first();
-      
-        // dd($result);
-
-        if($result) {
-            Session::put('customer',$result);
-            return Redirect::to('/');
-        } else {
-            Session::put('message','Mật khẩu hoặc tài khoản không đúng, vui lòng nhập lại!');
-            return redirect()->back()->with('error', 'Thong tin dang nhap sai!');
-
-        }
-        
-    }
-    //use api information city
     
 
 
@@ -75,7 +34,7 @@ class CheckOutController extends Controller
         $meta_canonical = $request->url();
         
         // $city = City::orderBy('matp')->get();
-        $customerInf =DB::table('tbl_tinhthanhpho')->where('customer_id','=', $customer->customer_id);
+        $customerInf =DB::table('tbl_tinhthanhpho')->where('customer_id','=', $customer->id)->get();
 
         
         $cate_product = DB::table('tbl_category_product')->where('category_status','1')->orderby('category_id','desc')->get();
@@ -166,7 +125,7 @@ class CheckOutController extends Controller
         // Check if order_id already exists in the session
         $existingOrder = DB::table('tbl_order')
             ->where([
-                ['customer_id', '=', $customer_id->customer_id],
+                ['customer_id', '=', $customer_id->id],
                 ['shipping_id', '=', $shipping_id],
             ])
             ->first();
@@ -177,11 +136,14 @@ class CheckOutController extends Controller
             $order_id = $existingOrder->order_id;
         } else {
             $data_order = array();
-            $data_order['customer_id'] = $customer_id->customer_id;
+            $data_order['customer_id'] = $customer_id->id;
             $data_order['shipping_id'] = $shipping_id;
             $data_order['payment_id'] = $payment_id;
             $data_order['order_total'] = $this->calculateSubtotal();
             $data_order['order_status'] = 'Đang chờ xử lý';
+            $data_order['created_at'] = now();
+            $data_order['updated_at'] = now();
+            
             $order_id = DB::table('tbl_order')->insertGetId($data_order);
         }
         

@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Branch extends Model
+class Brand extends Model
 {
     use HasFactory;
     public $timestamps = false;
     protected $fillable = [
-        'branch_name','branch_desc','branch_product_keywords','branch_status'
+        'brand_name','brand_desc','brand_product_keywords','brand_status'
     ];
-    protected $primaryKey = 'branch_id';
-    protected $table = 'tbl_branch_product';
+    protected $primaryKey = 'brand_id';
+    protected $table = 'tbl_brand_product';
     public function products() {
         return $this->hasMany('App\Models\Product');
     }
