@@ -15,13 +15,14 @@ class UserFactory extends Factory
      *
      * @return array<string, mixed>
      */
+    protected $model=\App\Models\User::class;
     public function definition()
     {
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'password' => '123', // password
             'remember_token' => Str::random(10),
         ];
     }

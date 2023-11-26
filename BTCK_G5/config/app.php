@@ -212,6 +212,7 @@ return [
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
 
-    'Cart' => Darryldecode\Cart\Facades\CartFacade::class
+    'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
+    
 
 ];

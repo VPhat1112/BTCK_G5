@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('tbl_product', function (Blueprint $table) {
             $table->increments('product_id');
             $table->integer('category_id');
-            $table->integer('branch_id');
+            $table->integer('brand_id');
             $table->text('product_content');
             $table->text('product_desc');
             $table->string('product_name');

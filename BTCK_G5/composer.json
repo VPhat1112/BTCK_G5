@@ -7,9 +7,10 @@
     "require": {
         "php": "^8.0.2",
         "darryldecode/cart": "^4.2",
-        "guzzlehttp/guzzle": "^7.2",
+        "guzzlehttp/guzzle": "^7.8",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
+        "laravel/socialite": "^5.10",
         "laravel/tinker": "^2.7"
     },
     "require-dev": {

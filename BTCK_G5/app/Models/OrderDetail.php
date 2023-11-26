@@ -8,15 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class OrderDetail extends Model
 {
     use HasFactory;
-    public $timestamps = false;
+    public $timestamps = true;
     protected $fillable = [
-    'order_code',
-    'product_id',
-    'product_price',
-    'product_name',
-    'product_sales_quanlity',
-    'order_feeship',
-    'order_coupon',
+        'order_code',
+        'product_id',
+        'product_price',
+        'product_name',
+        'product_sales_quanlity',
+        'order_feeship',
+        'order_coupon',
     ];
     protected $primaryKey = 'order_details_id';
     protected $table = 'tbl_order_details';

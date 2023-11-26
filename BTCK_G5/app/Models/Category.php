@@ -10,10 +10,9 @@ class Category extends Model
     use HasFactory;
     protected $fillable = ['category_name',
     'category_desc',
-    'category_product_keywords',
     'category_status'];
     protected $table='tbl_category_product';
-    protected $PrimaryKey='category_id';
+    protected $primaryKey='category_id';
     public $timestamps=true;
 
     public function products() {
