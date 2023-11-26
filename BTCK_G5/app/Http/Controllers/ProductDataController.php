@@ -76,7 +76,7 @@ class ProductDataController extends Controller
             return $this->sentSuccessRepose($productResource,'thanh cong',Response::HTTP_OK);
          } catch (\Throwable $e) {
             return response()->json([
-            'message' => 'Không tạo được sản hẩm ',
+            'message' => 'Không tạo được sản phẩm',
         ], Response::HTTP_NOT_FOUND);;
          }
     }
@@ -119,7 +119,7 @@ class ProductDataController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,string $product_id)
+       public function update(Request $request,string $product_id)
     {
           try {
         $product = $this->product->where('product_id', $product_id)->firstOrFail();
