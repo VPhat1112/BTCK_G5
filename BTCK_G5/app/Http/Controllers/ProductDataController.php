@@ -76,7 +76,7 @@ class ProductDataController extends Controller
             return $this->sentSuccessRepose($productResource,'thanh cong',Response::HTTP_OK);
          } catch (\Throwable $e) {
             return response()->json([
-            'message' => 'Không tạo được sản phẩm',
+            'message' => 'Không tạo được sản phẩm ',
         ], Response::HTTP_NOT_FOUND);;
          }
     }
