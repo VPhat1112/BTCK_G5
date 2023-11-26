@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckOutController;
+use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -18,11 +20,11 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index'])->name('Home');
+Route::get('/product/search', [ProductController::class, 'search'])->name('products.search');
 
 Route::get('/chi-tiet-san-pham/{product_id}', [ProductController::class,'detail_product']);
 
-Route::post('/login', [CheckOutController::class,'login_customer']);
 
 Route::post('/add-customer', [CheckoutController::class,'add_customer']);
 
@@ -33,14 +35,20 @@ Route::post('remove', [CartController::class, 'removeCart'])->name('cart.remove'
 Route::post('clear', [CartController::class, 'clearAllCart'])->name('cart.clear');
 
 Route::get('/checkout', [CheckoutController::class,'checkout']);
-// Route::get('/logincheckout', [CheckoutController::class,'login_checkout'])->name('logincheckout');
 
-Route::get('/login', [CheckoutController::class, 'login'])->name('login');
-Route::get('/login_cus', [CheckoutController::class, 'login_customer'])->name('login_customer');
-// Route::post('/login', [UserController::class, 'postLogin']);
-Route::get('/register', [CheckoutController::class, 'register'])->name('register');
-// Route::post('/register', [UserController::class, 'postRegister']);
-Route::get('/logout', [CheckoutController::class, 'logout'])->name('logout');
+Route::get('/dashboard',function(){
+    return view('HomePage');
+})->middleware(['auth','verified'])->name('dashboard');
+Route::get('/login', [LoginController::class, 'login'])->name('login');
+Route::post('/login_cus', [LoginController::class, 'postLogin'])->name('login_customer');
+
+Route::get('/register', [LoginController::class, 'register'])->name('register');
+Route::post('/register_save', [LoginController::class, 'postRegister']);
+
+Route::get('/auth/google/redirect', [LoginController::class, 'redirectToGoogle']);
+Route::get('/auth/google/call-back', [LoginController::class, 'handleGoogleCallback']);
+
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::post('/save_checkout',[CheckOutController::class,'save_checkout_customer'])->name('save_inf');
 
@@ -54,3 +62,12 @@ Route::get('/self_Order',[UserController::class, 'MyOrder'])->name('MyOrder');
 Route::post('self_Inf_save/{customer_email}', [UserController::class,'save_Information_customer']);
 
 Route::get('/DetailOrder/{order_id}',[UserController::class,'DetailsOrder']);
+
+
+//send request
+Route::get('/forgot-password', [ForgotPasswordController::class, 'forgotPassword'])->name('forgot.password');
+Route::post('/forgot-password', [ForgotPasswordController::class, 'forgotPasswordPost'])->name('forgot.password.post');
+
+// //reset pass
+Route::get('/reset-password/{token}', [ForgotPasswordController::class, 'resetPassword'])->name('reset.password');
+Route::post('/reset-password', [ForgotPasswordController::class, 'resetPasswordPost'])->name('reset.password.post');

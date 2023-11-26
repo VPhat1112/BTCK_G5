@@ -25,12 +25,12 @@ class ProductFactory extends Factory
             
             //
             'product_name'=>$this->faker->name,
-            'branch_id'=>$testMDM,
+            'brand_id'=>$testMDM,
             'product_content'=>$this->faker->paragraph,
             'product_price'=>$this->faker->numberBetween(10000,1000000),
             'product_status'=>$this->faker->numberBetween(0,100),
             'product_desc'=>$this->faker->paragraphs,
-            'product_image'=>$this->faker->randomDigitNotNull,
+            'product_image'=>'tivi.png',
             'category_id'=>$testMDM
         ];
     }

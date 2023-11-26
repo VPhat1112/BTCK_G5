@@ -11,9 +11,11 @@ use Illuminate\Database\Eloquent\Model;
 class UserController extends Controller
 {
     //
+    
+
     public function DetailsCustomer(request $request){
         $customer=Session::get('customer');
-        $customerInf=DB::table('tbl_customers')->where('customer_id','=',$customer->customer_id)->first();
+        $customerInf=DB::table('users')->where('id','=',$customer->id)->first();
         
         return view('customer_page.information',[
             'customerInf'=>$customerInf
@@ -33,7 +35,7 @@ class UserController extends Controller
                     'tbl_shipping.shipping_phone as shipping_phone',
                     'tbl_shipping.shipping_note as shipping_note',
                     'tbl_order.order_status as order_status') // Add the columns you want to retrieve
-                ->where('tbl_order.customer_id', $customer->customer_id)
+                ->where('tbl_order.customer_id', $customer->id)
                 ->get();
             // $myorder=DB::table('tbl_order')->where('customer_id','=',$customer->customer_id)->get();
 
@@ -48,7 +50,7 @@ class UserController extends Controller
             return redirect()->back()->with('error', 'An error occurred while fetching orders.');
         }
     }
-    public function save_Information_customer($customer_email,Request $request)
+    public function save_Information_customer($email,Request $request)
     {
         $customer_inf=Session::get('customer');
         try {
@@ -56,18 +58,17 @@ class UserController extends Controller
             $request->validate([
                 'CustomerName' => 'required',
                 'CustomerPhone' => 'required',
-                'CustomerAddress' => 'required',
             ]);
 
             // Find the customer by email
             $data=array();
             // Update the customer information
-            $data['customer_name'] = $request->input('CustomerName');
-            $data['customer_phone'] = $request->input('CustomerPhone');
-            $data['Address'] = $request->input('CustomerAddress');
+            $data['name'] = $request->input('CustomerName');
+            $data['phone'] = $request->input('CustomerPhone');
             
-            $customer = DB::table('tbl_customers')->where('customer_email','=',$customer_email)->update($data);
-            $customer_afterUpdate=DB::table('tbl_customers')->where('customer_email','=',$customer_email)->first();
+
+            $customer = DB::table('users')->where('email','=',$email)->update($data);
+            $customer_afterUpdate=DB::table('users')->where('email','=',$email)->first();
             
             // Update the session data
             Session::put('customer',$customer_afterUpdate);

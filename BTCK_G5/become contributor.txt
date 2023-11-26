@@ -1,0 +1,1 @@
+Phúc và Nghĩa có commit(vào nhánh riêng) nhưng không được tính là contributor, nên đành phải làm cách này

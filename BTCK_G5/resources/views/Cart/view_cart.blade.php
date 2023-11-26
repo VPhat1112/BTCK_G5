@@ -45,7 +45,7 @@
                                     <form action="{{ route('cart.update') }}" method="POST">
                                       @csrf
                                       <input type="hidden" name="id" value="{{ $item['id']}}" >
-                                    <input type="number" name="quantity" value="{{ $item['quantity'] }}" 
+                                    <input class="col" type="number" name="quantity" value="{{ $item['quantity'] }}" 
                                     class="w-6 text-center bg-gray-300" />
                                     <button type="submit" class="px-2 pb-2 ml-2 text-white bg-blue-500">update</button>
                                     </form>
@@ -91,11 +91,11 @@
                                                     $customer_id = Session::get('customer');
                                                     $Cart=Session::get('cart');
                                                 
-                                                    if($customer_id->customer_id != NULL  && $Cart==null) {
+                                                    if($customer_id->id != NULL  && $Cart==null) {
                                                     ?>
                                                     <a class="btn btn-default check_out" onclick="return alert('Bạn chưa có gì trong giỏ hàng, vui lòng thêm một sản phẩm')" href="#">Thanh toán</a>
                                                     <?php }
-                                                    elseif($customer_id->customer_id != NULL && $Cart!=null){?>
+                                                    elseif($customer_id->id != NULL && $Cart!=null){?>
                                                         <a class="btn btn-default check_out" href="/checkout">Thanh toán</a>
                                                     <?php }  else { ?>
                                                         <a class="btn btn-default check_out" href="{{route('login')}}">Thanh toán</a>

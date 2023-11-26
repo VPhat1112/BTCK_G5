@@ -25,7 +25,7 @@
 									<input type="text" name="shipping_email" class="shipping_email" placeholder="Địa chỉ email">
 									<input type="text" name="shipping_phone" class="shipping_phone" placeholder="Số điện thoại">
 								
-									{{-- <div id="citySelectorContainer">
+									<div id="citySelectorContainer">
 										<select name="shipping_address1" id="citySelector" onchange="toggleCustomCityInput(this)">
 											@foreach ($customerInf as $item)
 												<option value="{{ $item->name_city }}">{{ $item->name_city }}</option>
@@ -36,8 +36,8 @@
 								
 										<!-- Input for the custom city (initially hidden) -->
 										<input type="text" name="shipping_address" id="customCity" class="shipping_address" placeholder="Địa chỉ nhận hàng *" style="display:none;">
-									</div> --}}
-									<input type="text" name="shipping_address" class="shipping_address" placeholder="Địa chỉ nhận hàng *" >
+									</div>
+									{{-- <input type="text" name="shipping_address" class="shipping_address" placeholder="Địa chỉ nhận hàng *" > --}}
 									<textarea name="shipping_note" class="shipping_note" placeholder="Ghi chú đơn hàng của bạn" rows="5"></textarea>
 									
 									<label for="exampleInputFile">Chọn phương thức thanh toán</label>

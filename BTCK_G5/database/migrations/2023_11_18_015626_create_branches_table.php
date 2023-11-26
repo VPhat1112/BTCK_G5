@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tbl_branch_product', function (Blueprint $table) {
-            $table->increments('branch_id');
-            $table->string('branch_name');
-            $table->text('branch_desc');
-            $table->integer('branch_status');
+        Schema::create('tbl_brand_product', function (Blueprint $table) {
+            $table->increments('brand_id');
+            $table->string('brand_name');
+            $table->text('brand_desc');
+            $table->integer('brand_status');
             $table->timestamps();
         });
     }
