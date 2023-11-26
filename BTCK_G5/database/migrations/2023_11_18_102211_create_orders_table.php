@@ -19,7 +19,6 @@ return new class extends Migration
             $table->integer('shipping_id');
             $table->integer('payment_id');
             $table->string('order_total');
-            
             $table->string('order_status');
             $table->timestamps();
         });
