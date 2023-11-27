@@ -28,11 +28,11 @@
             @foreach($carts as $cart_item)
                 <tr>
                     <td class="cart_product">
-                        <a href=""><img src="{{URL::to('public/upload/product/'.$cart_item['image'])}}" alt="" width="50" height="50"></a>
+                        <a href=""><img src="{{$cart_item['image']}}" alt="" width="50" height="50"></a>
                     </td>
                     <td class="cart_description">
                         <h4><a href="">{{$cart_item['name']}}</a></h4>
-                        <p>Mã đồng hồ: {{$cart_item['id']}}</p>
+                        <p>Mã sản phẩm: {{$cart_item['id']}}</p>
                     </td>
                     <td class="cart_price">
                         <p>{{number_format($cart_item['price'])." VND"}}</p>

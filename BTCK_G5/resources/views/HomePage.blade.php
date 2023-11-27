@@ -30,7 +30,7 @@
                     <div class="col-4">
                         <div class="product-new">
                             <a href="{{URL::to('chi-tiet-san-pham/'.$product->product_id)}}">
-                                <img style="width: 100%;" src="{{URL::to('upload/'.$product->product_image)}}" alt="">
+                                <img style="width: 100%;" src="{{$product->product_image}}" alt="">
                                 <a class="name-product-new" href="{{ URL::to('chi-tiet-san-pham/'.$product->product_id) }}">{{ $product->product_name }}</a>
                                 <p class="price-product-new">{{ $product->product_price }}₫</p>
                             </a>
@@ -41,7 +41,7 @@
                                 <input type="hidden" value="{{ $product->product_price }}" name="price">
                                 <input type="hidden" value="{{ $product->product_image }}"  name="image">
                                 <input type="hidden" value="1" name="quantity">
-                                <button class="px-4 py-2 text-white bg-blue-800 rounded">Add To Cart</button>
+                                <button class="px-4 py-2 text-blue bg-blue-800 rounded">Add To Cart</button>
                             </form>
                         </div>
                 </div>

@@ -27,7 +27,7 @@ class ProductRequests extends FormRequest
     {
         return [
              'category_id'=>'required',
-            'branch_id'=>'required',
+            'brand_id'=>'required',
             'product_content'=>'required',
             'product_desc'=>'required',
             'product_name'=>'required',

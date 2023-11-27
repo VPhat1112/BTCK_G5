@@ -38,13 +38,13 @@ class CheckOutController extends Controller
 
         
         $cate_product = DB::table('tbl_category_product')->where('category_status','1')->orderby('category_id','desc')->get();
-        $branch_product = DB::table('tbl_branch_product')->where('branch_status','1')->orderby('branch_id','desc')->get();
+        // $branch_product = DB::table('tbl_branch_product')->where('branch_status','1')->orderby('branch_id','desc')->get();
         $productCount = $this->getProductCount();
 
         // dd($cities);
         return view('checkout.view_checkout', [
             'category_product' => $cate_product,
-            'branch_product' => $branch_product,
+            // 'branch_product' => $branch_product,
             'meta_title' => $meta_title,
             'meta_desc' => $meta_desc,
             'meta_keywords' => $meta_keywords,
@@ -61,10 +61,11 @@ class CheckOutController extends Controller
 
     public function save_checkout_customer(Request $request) {
         $cart = session()->get('cart', []);
+        $dataDefault = Session::get('customer');
         $data_shipipng = array();
         if($request->shipping_address==null){
             $data_shipipng['shipping_name'] = $request->shipping_name;
-            $data_shipipng['shipping_email'] = $request->shipping_email;
+            $data_shipipng['shipping_email'] = $dataDefault->email;
 
             $data_shipipng['shipping_phone'] = $request->shipping_phone;
             $data_shipipng['shipping_address'] = $request->shipping_address1;
@@ -72,7 +73,7 @@ class CheckOutController extends Controller
 
         }else{
             $data_shipipng['shipping_name'] = $request->shipping_name;
-            $data_shipipng['shipping_email'] = $request->shipping_email;
+            $data_shipipng['shipping_email'] = $dataDefault->email;
 
             $data_shipipng['shipping_phone'] = $request->shipping_phone;
             $data_shipipng['shipping_address'] = $request->shipping_address;
@@ -82,6 +83,7 @@ class CheckOutController extends Controller
 
 
         Session::put('shipping', $data_shipipng);
+
         // dd($data_shipipng);
         return view('checkout.payment')->with('carts',$cart);
     }
@@ -97,15 +99,15 @@ class CheckOutController extends Controller
         ])
         ->first();
 
-        if ($existingShipping) {
-            // Shipping ID already exists, retrieve the existing shipping_id
-            $shipping_id = $existingShipping->shipping_id;
-        } else {
+        // if ($existingShipping) {
+        //     // Shipping ID already exists, retrieve the existing shipping_id
+        //     $shipping_id = $existingShipping->shipping_id;
+        // } else {
             // Shipping ID doesn't exist, insert new data and get the new shipping_id
             // dd($shipping_data);
             $shipping_id = DB::table('tbl_shipping')->insertGetId($shipping_data);
-        }
-        
+        // }
+        // dd($shipping_id);
         
         // insert payment method
         $payment_id = Session::get('payment_id');
@@ -181,7 +183,7 @@ class CheckOutController extends Controller
         session()->forget('cart');
             // Additional handling for payment method 2
         $cate_product = DB::table('tbl_category_product')->where('category_status', '1')->orderBy('category_id', 'desc')->get();
-        $branch_product = DB::table('tbl_branch_product')->where('branch_status', '1')->orderBy('branch_id', 'desc')->get();
+        // $branch_product = DB::table('tbl_branch_product')->where('branch_status', '1')->orderBy('branch_id', 'desc')->get();
 
         $meta_title = "Đặt hàng thành công";
         $meta_desc = "";
@@ -189,7 +191,8 @@ class CheckOutController extends Controller
         $meta_canonical = $request->url();
         $image_og = "";
 
-        return view('checkout.handcash')->with('category_product', $cate_product)->with('branch_product', $branch_product)
+        return view('checkout.handcash')->with('category_product', $cate_product)
+        // ->with('branch_product', $branch_product)
         ->with('meta_title', $meta_title)
         ->with('meta_desc', $meta_desc)
         ->with('meta_keywords', $meta_keywords)

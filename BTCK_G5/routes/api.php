@@ -22,5 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::apiResource('category',CategoryController::class);
 Route::apiResource('product',ProductDataController::class);
-
+Route::post('updateProduct/{id}', [ProductDataController::class, 'update']);
 Route::get('/', [HomeController::class, 'index']);

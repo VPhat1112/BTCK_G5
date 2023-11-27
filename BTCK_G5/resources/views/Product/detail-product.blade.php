@@ -6,7 +6,7 @@
         @foreach($product_by_id as $key => $productDetail)
             <div class="row">
                 <div class="col-5">
-                    <img src="{{URL::to('upload/'.$productDetail->product_image)}}" height="300px" width="300px" alt="">
+                    <img src="{{$productDetail->product_image}}" height="300px" width="300px" alt="">
                 </div>
                 <form action="{{ route('cart.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf

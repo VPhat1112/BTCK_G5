@@ -22,10 +22,11 @@
 								<form action="{{ Route('save_inf') }}" method="POST" enctype="multipart/form-data">
 									@csrf
 									<input type="text" name="shipping_name" class="shipping_name" placeholder="Tên người nhận">
-									<input type="text" name="shipping_email" class="shipping_email" placeholder="Địa chỉ email">
+									{{-- <input type="text" name="shipping_email" class="shipping_email" placeholder="Địa chỉ email" value="{{ session('Customer')->email }} " disabled> --}}
+									<input type="text" name="shipping_email" class="shipping_email" placeholder="Địa chỉ email" value="{{ session('customer')->email }} " disabled>
 									<input type="text" name="shipping_phone" class="shipping_phone" placeholder="Số điện thoại">
 								
-									<div id="citySelectorContainer">
+									{{-- <div id="citySelectorContainer">
 										<select name="shipping_address1" id="citySelector" onchange="toggleCustomCityInput(this)">
 											@foreach ($customerInf as $item)
 												<option value="{{ $item->name_city }}">{{ $item->name_city }}</option>
@@ -36,8 +37,8 @@
 								
 										<!-- Input for the custom city (initially hidden) -->
 										<input type="text" name="shipping_address" id="customCity" class="shipping_address" placeholder="Địa chỉ nhận hàng *" style="display:none;">
-									</div>
-									{{-- <input type="text" name="shipping_address" class="shipping_address" placeholder="Địa chỉ nhận hàng *" > --}}
+									</div> --}}
+									<input type="text" name="shipping_address" class="shipping_address" placeholder="Địa chỉ nhận hàng *" >
 									<textarea name="shipping_note" class="shipping_note" placeholder="Ghi chú đơn hàng của bạn" rows="5"></textarea>
 									
 									<label for="exampleInputFile">Chọn phương thức thanh toán</label>
@@ -46,7 +47,7 @@
 										<option value="1">Chuyển khoản</option>
 									</select>
 								
-									<button class="px-4 py-2 text-white bg-blue-800 rounded">Xác nhận</button>
+									<button class="px-4 py-2 text-blue bg-blue-800 rounded">Xác nhận</button>
 								</form>
 								
 								<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -104,7 +105,7 @@
 							
 							<tr>
 								<td class="cart_product">
-									<a href=""><img src="{{URL::to('upload/'.$item['image'])}}" alt="" width="50" height="50"></a>
+									<a href=""><img src="{{$item['image']}}" alt="" width="50" height="50"></a>
 								</td>
 								<td class="cart_description">
 									<h4><a href="{{URL::to('/chi-tiet-san-pham/'.$item['id'])}}">{{$item['name']}}</a></h4>
@@ -137,7 +138,7 @@
 							<tr>
 								<td colspan="5">
 									<form action="{{ route('cart.list') }}" method="POST">
-										<input type="submit" value="Cập nhật giỏ hàng" class="submitQty check_out">
+										{{-- <input type="submit" value="Cập nhật giỏ hàng" class="submitQty check_out"> --}}
 										<a href="{{ route('cart.list') }}" class="submitQty check_out">Chỉnh sửa giỏ hàng</a>
 									</form>
 									

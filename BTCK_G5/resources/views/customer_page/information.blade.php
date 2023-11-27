@@ -22,7 +22,8 @@
                 <p class="text-green-800">{{ $message }}</p>
             </div>
         @endif
-        <button id="toggleButton" onclick="toggleInputs()">Cập nhật thông tin</button>
+        {{-- <button id="toggleButton" onclick="toggleInputs()">Cập nhật thông tin</button> --}}
+        <h2>Cập nhật thông tin cá nhân</h2>
         <form action="{{ URL::to('self_Inf_save/'.$customerInf->email ) }}" enctype="multipart/form-data" method="POST">
             @csrf <!-- Add this to include the CSRF token -->
         
@@ -39,7 +40,7 @@
             <input type="hidden" name="originalPhone" value="{{ $customerInf->phone }}">
             {{-- <input type="hidden" name="originalAddress" value="{{ $customerInf->Address }}"> --}}
         
-            <button type="submit" class="px-4 py-2 text-white bg-blue-800 rounded">Xác nhận</button>
+            <button type="submit" class="px-4 py-2 text-blue bg-blue-800 rounded">Xác nhận</button>
         </form>
         <script>
             function toggleInputs() {

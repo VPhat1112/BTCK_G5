@@ -35,13 +35,13 @@
                             <div style="width: 400px;" class="flex-start">
                                 <div style="width: 100%;"> 
                                     <p class="label-form">Password *</p>
-                                    <input type="email" id="login-email" name="password" style="width: 100%;" />
+                                    <input type="password" id="login-email" name="password" style="width: 100%;" />
                                 </div>
                             </div>
                             <div style="width: 400px;" class="flex-start">
                                 <div style="width: 100%;"> 
                                     <p class="label-form">Confirm Password *</p>
-                                    <input type="email" id="login-email" name="password_confirmation" style="width: 100%;" />
+                                    <input type="password" id="login-email" name="password_confirmation" style="width: 100%;" />
                                 </div>
                             </div>
                             <button type="submit" class="btn-login"><span class="text-btn">Reset Password</span></button>

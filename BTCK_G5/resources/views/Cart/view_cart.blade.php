@@ -29,7 +29,7 @@
                             <tr>
                               <td class="hidden pb-4 md:table-cell">
                                 <a href="#">
-                                  <img src="{{URL::to('upload/'.$item['image'])}}" class="w-20 rounded" alt="Thumbnail">
+                                  <img src="{{$item['image']}}" class="w-20 rounded" alt="Thumbnail">
                                 </a>
                               </td>
                               <td>
@@ -87,19 +87,26 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="total_area">
-                                            <?php
-                                                    $customer_id = Session::get('customer');
-                                                    $Cart=Session::get('cart');
-                                                
-                                                    if($customer_id->id != NULL  && $Cart==null) {
-                                                    ?>
-                                                    <a class="btn btn-default check_out" onclick="return alert('Bạn chưa có gì trong giỏ hàng, vui lòng thêm một sản phẩm')" href="#">Thanh toán</a>
-                                                    <?php }
-                                                    elseif($customer_id->id != NULL && $Cart!=null){?>
-                                                        <a class="btn btn-default check_out" href="/checkout">Thanh toán</a>
-                                                    <?php }  else { ?>
-                                                        <a class="btn btn-default check_out" href="{{route('login')}}">Thanh toán</a>
-                                                    <?php } ?>
+                                      <?php
+                                      $customer_id = Session::get('customer');
+                                      $cart = Session::get('cart');
+                                      
+                                      if ($customer_id !== null && $customer_id->id !== null) {
+                                          if ($cart == null) {
+                                              ?>
+                                              <a class="btn btn-default check_out" onclick="return alert('Bạn chưa có gì trong giỏ hàng, vui lòng thêm một sản phẩm')" href="#">Thanh toán</a>
+                                              <?php
+                                          } else {
+                                              ?>
+                                              <a class="btn btn-default check_out" href="/checkout">Thanh toán</a>
+                                              <?php
+                                          }
+                                      } else {
+                                          ?>
+                                          <a class="btn btn-default check_out" href="{{ route('login') }}">Thanh toán</a>
+                                          <?php
+                                      }
+                                    ?>
                                             
                                     </div>
                                 </div>
